@@ -1,0 +1,7 @@
+.custom-shadow {
+  border: none; box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+}
+
+.custom-round {
+  border-radius: 50%;
+}

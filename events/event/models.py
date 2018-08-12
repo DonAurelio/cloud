@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 class Event(models.Model):
@@ -23,6 +25,7 @@ class Event(models.Model):
         (VIRTUAL, 'Virtual')
     )
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=200,null=True,blank=True)
     venue = models.CharField(max_length=200,null=True,blank=True)
     address = models.CharField(max_length=200,null=True,blank=True)
@@ -38,3 +41,12 @@ class Event(models.Model):
         choices=CLASSIFICATION_CHOICES,
         default=FACE
     )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        # Order event objects by desending
+        ordering = ['-created_at']
+
+
+    def get_absolute_url(self):
+        return reverse('event:detail', kwargs={'pk': self.pk})

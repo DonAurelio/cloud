@@ -6,7 +6,7 @@ from event.models import *
 class EventAdmin(admin.ModelAdmin):
 
     list_display = (
-    	'id','name','venue','address','start_date',
+    	'id','user','name','venue','address','start_date',
     	'end_date','category','classification'
     )
-    search_fields = ('id','name',)
+    search_fields = ('user','name',)

@@ -24,7 +24,7 @@ class Event(models.Model):
     )
 
     name = models.CharField(max_length=200,null=True,blank=True)
-    vanue = models.CharField(max_length=200,null=True,blank=True)
+    venue = models.CharField(max_length=200,null=True,blank=True)
     address = models.CharField(max_length=200,null=True,blank=True)
     start_date = models.DateTimeField(null=True,blank=True)
     end_date = models.DateTimeField(null=True,blank=True)

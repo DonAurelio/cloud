@@ -125,3 +125,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+LOGIN_URL = 'authentication:login'
+LOGOUT_URL = 'authentication:logout'
+LOGIN_REDIRECT_URL = 'index:home'
+
+AUTH_USER_MODEL = 'authentication.Account'

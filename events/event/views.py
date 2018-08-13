@@ -9,24 +9,31 @@ from django.urls import reverse_lazy
 from event.models import Event
 
 
-class EventList(ListView):
+class EventList(LoginRequiredMixin,ListView):
     """Deals with events list logic."""
 
     model = Event
     template_name = 'event/event_list.html'
 
-    # login_url = 'authentication:login'
-    # redirect_field_name = 'redirect_to'
+    login_url = 'authentication:login'
+    redirect_field_name = 'redirect_to'
+
+    # def get_queryset(self):
+    #     queryset = Event.objects.filter(user=self.request.user)
+    #     return queryset
 
 
-class EventDetail(DetailView):
+class EventDetail(LoginRequiredMixin,DetailView):
     """Deals with event creation logic."""
 
     model = Event
     template_name = 'event/event_detail.html'
 
+    login_url = 'authentication:login'
+    redirect_field_name = 'redirect_to'
 
-class EventUpdate(UpdateView):
+
+class EventUpdate(LoginRequiredMixin,UpdateView):
     """Deals with event update logic."""
 
     model = Event
@@ -35,14 +42,20 @@ class EventUpdate(UpdateView):
         'category','classification'
     ]
 
+    login_url = 'authentication:login'
+    redirect_field_name = 'redirect_to'
 
-class EventDelete(DeleteView):
+
+class EventDelete(LoginRequiredMixin,DeleteView):
     """Deals with event delection logic."""
     model = Event
     success_url = reverse_lazy('event:list')
 
+    login_url = 'authentication:login'
+    redirect_field_name = 'redirect_to'
 
-class EventCreate(CreateView):
+
+class EventCreate(LoginRequiredMixin,CreateView):
     """Deals with event creation logic."""
 
     model = Event
@@ -51,6 +64,9 @@ class EventCreate(CreateView):
         'category','classification'
     ]
     success_url = reverse_lazy('event:list')
+
+    login_url = 'authentication:login'
+    redirect_field_name = 'redirect_to'
 
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.

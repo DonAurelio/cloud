@@ -1,7 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.urls import reverse
 
+from authentication.models import Account
 
 class Event(models.Model):
 
@@ -25,7 +25,7 @@ class Event(models.Model):
         (VIRTUAL, 'Virtual')
     )
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=200,null=True,blank=True)
     venue = models.CharField(max_length=200,null=True,blank=True)
     address = models.CharField(max_length=200,null=True,blank=True)

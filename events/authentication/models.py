@@ -16,7 +16,7 @@ from django.core import validators
 class AccountManager(BaseUserManager):
     use_in_migrations = True
 
-    def _create_user(self, email, password, is_superuser, is_active,**extra_fields):
+    def _create_user(self, email, password, is_superuser,**extra_fields):
         """
         Creates and save a User with the given username, email and password.
         """    
@@ -26,7 +26,6 @@ class AccountManager(BaseUserManager):
         account = self.model(
             email=self.normalize_email(email),
             is_superuser=is_superuser,
-            is_active=is_active
         )
 
         account.set_password(password)
@@ -34,10 +33,10 @@ class AccountManager(BaseUserManager):
         return account
 
     def create_user(self, email, password=None,**extra_fields):
-        return self._create_user(username,email,password,False,True,**extra_fields)
+        return self._create_user(username,email,password,False,**extra_fields)
 
     def create_superuser(self, email, password, **extra_fields):
-        return self._create_user(email,password,True,True,**extra_fields)
+        return self._create_user(email,password,True,**extra_fields)
 
 
 # Extracted from https://thinkster.io/django-angularjs-tutorial
@@ -46,12 +45,8 @@ class AccountManager(BaseUserManager):
 class Account(AbstractBaseUser,PermissionsMixin):
 
     email = models.EmailField(_('email address'),unique=True, blank=True)
-    is_active = models.BooleanField(
-        default=True,
-        help_text=_('Designates whether this user should be treated as '
-                    'active. Unselect this instead of deleting accounts.')
-    )
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    is_active = True
 
     objects = AccountManager()
 

@@ -13,7 +13,7 @@ class AccountAdmin(UserAdmin):
 
     fieldsets = (
         (_('Personal info'), {'fields': ('email', 'password')}),
-        (_('Permissions'), {'fields': ('is_active', 'is_superuser','groups', 'user_permissions')}),
+        (_('Permissions'), {'fields': ('is_superuser','groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
     search_fields = ('email',)

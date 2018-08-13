@@ -1,11 +1,12 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.template import RequestContext
 from django.views.generic import TemplateView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
-from django.urls import reverse_lazy
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 from authentication.models import Account
 
@@ -57,9 +58,8 @@ class Register(TemplateView):
         """
         form = UserCreationForm()
         context = {'form':form}
-        return render_to_response(
-            'authentication/register.html',context,
-            context_instance=RequestContext(request))
+        template = 'authentication/register.html'
+        return render(request,template,context)
 
     def post(self,request,*args,**kwargs):
         """
@@ -73,11 +73,10 @@ class Register(TemplateView):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
-            template = 'authentication/success.html'
+            return HttpResponseRedirect(reverse('index:home'))
 
         else:
             context['form'] = form
             template = 'authentication/register.html'
 
-        return render_to_response(template, context,
-            context_instance=RequestContext(request))
+        return render(request,template, context)

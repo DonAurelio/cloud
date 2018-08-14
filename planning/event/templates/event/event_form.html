@@ -37,14 +37,7 @@
     <form method="post">{% csrf_token %}
         <div class="table-responsive">
           <table class="table table-borderless">
-            <tbody>
-              {% for field in form %}
-              <tr>
-                <td><strong>{{ field.label|title }}</strong></td>
-                <td>{{ field }}</td>
-              </tr>
-              {% endfor %}
-            </tbody>
+            {{ form.as_table }}
           </table>
           <div class="text-right">
             <input class="btn bg-purple text-white custom-shadow" type="submit" value="Save">

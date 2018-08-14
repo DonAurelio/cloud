@@ -109,7 +109,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# When USE_TZ is False, this is the time zone in which Django will store all datetimes. 
+# When USE_TZ is True, this is the default time zone that 
+# Django will use to display datetimes in templates and 
+# to interpret datetimes entered in forms.
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
 

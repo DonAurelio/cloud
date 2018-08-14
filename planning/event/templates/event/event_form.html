@@ -34,10 +34,30 @@
   </div>
   {% endif %}
   <div class="my-3 p-3 bg-white rounded shadow-sm">
+    {% for error in form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
+    {% endfor %}
     <form method="post">{% csrf_token %}
         <div class="table-responsive">
           <table class="table table-borderless">
-            {{ form.as_table }}
+            <tbody>
+              {% for field in form %}
+              <tr>
+                <td><strong>{{ field.label|title }}</strong></td>
+                <td>
+                  {{ field }}
+                  <small class="form-text text-muted">
+                    {{ field.help_text }}
+                  </small>
+                  {% for error in field.errors %}
+                  <small class="text-warning">{{ error }}</small>
+                  {% endfor %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
           </table>
           <div class="text-right">
             <input class="btn bg-purple text-white custom-shadow" type="submit" value="Save">
